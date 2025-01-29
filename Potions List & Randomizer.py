@@ -1,36 +1,21 @@
 import random
 import tkinter as tk
 from tkinter import ttk
+import csv
 
-# Database of Potions
-database = [
-    "Bottled Flame",
-    "Claw Potion",
-    "Diminish",
-    "Shield Potion",
-    "Winged Potion",
-    "Toxic Droplet",
-    "Angel Elixir",
-    "Running Shoe Potion",
-    "Pacifist Juice",
-    "Steel Potion",
-    "Totem Shot",
-    "Vitamins",
-    "Blue Brain Juice",
-    "Blue Mist",
-    "Negate Potion",
-    "Hostile Intent",
-    "Bolster Up",
-    "Right Angle Potion",
-    "Bottled Whiplash",
-    "Invulnerability Potion",
-    "Mist Me",
-    "Growth and Decay"
-]
+# function to ingest potion csv into a list
+def read_potions_list(filename):
+    listContents = []
+    with open(filename) as file:
+        reader = csv.reader(file)
+        return [row[0] for row in reader if row]
+
+# calls function above, puts potion csv into list called 'potions'
+potions = read_potions_list("potions.csv")
 
 # Function to update displayed potions
 def generate_potions():
-    selected_items = random.sample(database, 3)
+    selected_items = random.sample(potions, 3)
     for i, potion_label in enumerate(potion_labels):
         potion_label.config(text=selected_items[i])
 
